@@ -1,0 +1,129 @@
+﻿@using sitScrum.Models.Authentication
+@using sitScrum.util 
+
+@{
+    String contentRoot = Url.Content("~/");
+    String ApplicationRoot = this.Context.Request.Scheme + "://" + this.Context.Request.Host + contentRoot.Substring(0, contentRoot.Length - 1);
+}
+
+<!DOCTYPE html>
+<html data-root="@ApplicationRoot"  lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="~/favicon.ico">
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <link href="~/lib/IMSA/bootstrapImsa.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css">
+
+    @*Los siguientes dos scripts se adicionan para que funcionen las validaciones de los data annottation*@
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    @*Inicia modificar los datatables*@
+    <script src="~/lib/DataTables/datatables.min.js"></script>
+
+    <link href="~/lib/DataTables/datatables.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+
+
+    @*Termina modificar los datatables*@
+
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @*Para el arbol*@
+    <script src="~/lib/jstree/jstree.min.js"></script>
+    <link href="~/lib/jstree/themes/default/style.min.css" rel="stylesheet" />
+
+    @*Para el bootstrap select*@
+    <script src="~/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <link href="~/lib/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+    <script src="~/lib/jquery/dist/jquery.mask.min.js"></script>
+
+    @*Para el block screen*@
+    <script src="~/lib/jquery/dist/jquery.blockUI.min.js"></script>
+
+    @*Para Sweet Alert*@
+    <script src="~/lib/sweetAlert2/sweetalert.min.js"></script>
+
+    <script>
+        function getDomainIMSA() {
+
+            return '@ApplicationRoot';
+        }
+    </script>
+    <script src="~/js/app.jquery.components.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                        <div class="col-sm-6 col-md-3 col-lg-5 text-left">                       
+                            <a href="~/home/index"><img src="~/images/logo-IMSA-png.png" style="height:90px; width:150px;" alt="logo Imsa" /></a>
+                        </div>
+                        <div class="d-none d-sm-block col-sm-6 col-md-3 col-lg-2 text-center">
+                            <p class="titulo_sistema text-center">Titulo</p>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-5 text-right">
+                            <div class="row" >                                                                     
+                                    <div class="col">
+                                        <div class="nombre_usuario text-right">
+                                            @{ 
+                                                var vDatos = this.Context.Session.GetObject<DatosUsuario>("usrData");
+                                                if (vDatos != null)
+                                                {
+                                                    @(vDatos.Usuario+ " [ " + vDatos.NombreUsuario + " ]")
+                                                }
+
+                                            }                                               
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col">
+                                            
+                                            <a id="lnkCerrar" class="link_cerrar_sesion" href='@Url.Action("Logout", "User")'>[Cerrar Sesión] <img id="Image5" src="~/images/Exit.png"  alt="Imagen Salida"/> </a>
+                                            
+                                    </div>                                   
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nav barraSuperiorMenu">
+
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light navbar-imsa">
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand d-block d-sm-none">Titulo</a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbarNav">
+                    @await Html.PartialAsync("_menuPartial")
+                </div>
+            </nav>
+            <div class="body-content container-fluid mt-lg-4">
+                @RenderBody()
+
+                <hr />
+                <footer class="footer">
+                    <p class="labelCopyright">© Tecnolog&iacute;a De La Informaci&oacute;n,  <a id="lnkIngenio" target="_blank" href="https://www.imsa.com.gt/" class="label_link_blue" rel="noopener">Ingenio Magdalena, S.A.</a></p>
+                </footer>
+            </div>
+
+        </body>
+        </html>

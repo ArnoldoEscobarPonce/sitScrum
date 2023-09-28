@@ -1,0 +1,78 @@
+﻿@using clbModels.Bitacora;
+@model Scrum_Tareas
+
+<div class="modal fade" id="dvModalEditar" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title">Tarea</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <input asp-for="Accion" id="Accion" class="form-control" hidden="hidden" />
+
+                <div>
+                    <div class="row">
+                        <div class="col-3 px-1">
+                            <label asp-for="Cod_Operacion" class="control-label"></label>
+                            <input asp-for="Cod_Operacion" id="Cod_Operacion" type="number" class="form-control" disabled='@(Model?.Accion != "I" ? "disabled" : null)' />
+                        </div>
+                        <div class="col-9 px-1">
+                            <br />
+                            <span id="spn_cod_operacion" asp-validation-for="Cod_Operacion" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col px-1">
+                            <label asp-for="Descripcion" class="control-label"></label>
+                            <input asp-for="Descripcion" class="form-control" />
+                            <span id="spn_descripcion" asp-validation-for="Descripcion" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 px-1">
+                            <label asp-for="Desplazamiento" class="control-label"></label>
+                            <select asp-for="Desplazamiento" class="form-control">
+                                <option value="">- Seleccione una opción -</option>
+                                <option value="S">Si</option>
+                                <option value="N">No</option>
+                            </select>
+                            <span id="spn_desplazamiento" asp-validation-for="Desplazamiento" class="text-danger"></span>
+                        </div>
+                        <div class="col-4 px-1">
+                            <label asp-for="Motor_Encendido" class="control-label"></label>
+                            <select asp-for="Motor_Encendido" class="form-control">
+                                <option value="">- Seleccione una opción -</option>
+                                <option value="S">Si</option>
+                                <option value="N">No</option>
+                            </select>
+                            <span id="spn_motor_Encendido" asp-validation-for="Motor_Encendido" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="fnClick_Grabar();">Guardar cambios</button>
+            </div>
+            <div id="respuestaServidor"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+</script>
+
+@section Scripts {
+    <script src="~/js/BoletinOperador.js"></script>
+    <script src="~/lib/datatables/buttons-2.2.2/js/buttons.html5.min.js"></script>
+    <script src="~/lib/datatables/pdfmake-0.1.36/pdfmake.js"></script>
+    <script src="~/lib/datatables/pdfmake-0.1.36/vfs_fonts.js"></script>
+    <script src="~/lib/datatables/jszip-2.5.0/jszip.min.js"></script>
+}
+
+

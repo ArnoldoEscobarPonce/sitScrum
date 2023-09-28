@@ -1,0 +1,82 @@
+﻿@using clbModels.Bitacora;
+@model List<Scrum_Tareas>
+
+<button class="btn btn-success" onclick="btnNuevoRegistro_Click();"><i class="fas fa-plus-circle"></i> Nuevo Registro</button>
+<br />
+<br />
+<div id="dvDetalle">
+    @await Html.PartialAsync("DetalleDatos", new List<Scrum_Tareas>());
+</div>
+
+<div id="dvEditar">
+    @await Html.PartialAsync("ModalEditar", new Scrum_Tareas());
+</div>
+
+<script>
+    //JQUERY
+    $(document).ready(function () {
+        fnConsultarDetalle();
+    });
+
+    function ShowModal(name) {
+        $(name).modal('toggle');
+    };
+
+    function LimpiarModal() {
+        $("#Cod_Actividad").val("");
+        $("#Cod_Tarea").val("");
+        $("#Descripcion").val("");
+        $("#Anotaciones").val("");
+        $("#Accion").val("");
+    }
+
+    function fnConsultarDetalle() {
+        debugger;
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListarDetalle", "Tareas")',
+            //contentType: "application/json; charset=utf-8",
+            //data: model = {Anio_Zafra: vZafra},
+            //dataType: "json",
+            success: function (data) {
+                debugger;
+                $("#dvDetalle").html();
+                $("#dvDetalle").html(data);
+                InitializeTable("#tablaDetalle");
+            },
+            complete: function (data) {
+                debugger;
+                console.log("Exito");
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                ShowErrorDialog(errorMessage);
+                console.log(result);
+            }
+        });
+    }
+
+    function btnEditar_Click(vTarea) {
+        LimpiarModal();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("RecuperarRegistro", "Tareas")',
+            data: model = { Cod_Tarea: vTarea, Accion: "U" },
+            success: function (data) {
+                //debugger;
+                $("#dvEditar").html();
+                $("#dvEditar").html(data);
+                ShowModal("#dvModalEditar");
+
+                $('.modal-dialog').draggable({
+                    handle: ".modal-header"
+                });
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                ShowErrorDialog(errorMessage);
+            }
+        });
+    }
+
+</script>

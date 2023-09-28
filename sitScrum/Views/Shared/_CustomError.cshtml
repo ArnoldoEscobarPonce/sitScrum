@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "CustomError";
+    var exception = ViewData["Exception"] as Exception;
+    var vController = ViewData["Controller"];
+    var vAction = ViewData["Action"];
+}
+
+<div class="row pb-3">
+    <div class="col-xl-3 col-sm-12">
+        <img src="~/images/error_page.png" style="vertical-align:middle"  alt="Imagen Error"/>
+    </div>
+    <div class="col-xl-6 col-sm-12">
+        <p style="font-size:xx-large"> Ha ocurrido un error en la p&aacute;gina Web, por favor contacte al administrador del sistema.</p>
+
+        @Html.ActionLink("Ir a la página de inicio","index")
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <p><strong>Fecha:</strong>@System.DateTime.Now.ToString("dd/MM/yyyy HH:mm")</p>
+        <p><strong>Controller:</strong> @vController  </p>
+        <p><strong>Action:</strong> @vAction </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <p><strong>Exception:</strong> @exception.Message</p>
+    </div>
+</div>

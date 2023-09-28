@@ -1,0 +1,15 @@
+﻿@using clbModels.Bitacora;
+@model List<Scrum_Tareas>
+
+<button class="btn btn-success" onclick="btnNuevoRegistro_Click();"><i class="fas fa-plus-circle"></i> Nuevo Registro</button>
+
+<div id="dvDetalle">
+    @await Html.PartialAsync("DetalleDatos", new List<Scrum_Tareas>());
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        fnConsultarDetalle();
+    });
+</script>

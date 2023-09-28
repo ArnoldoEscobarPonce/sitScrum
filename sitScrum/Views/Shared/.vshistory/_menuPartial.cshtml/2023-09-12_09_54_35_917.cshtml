@@ -1,0 +1,41 @@
+﻿@using sitScrum.Models.Authentication
+@using sitScrum.util;
+
+@Html.AntiForgeryToken()
+
+<ul class="nav navbar-nav">
+    @{ 
+        var lstMenu = this.Context.Session.GetObject<List<OpcionMenu>>("LstOptMenu");
+        if (lstMenu != null)
+        {
+            foreach (OpcionMenu item in lstMenu.Where(x => (x.Cod_Menu_Padre == -1 || x.Cod_Menu_Padre == -5873)).ToList()) // LCOSSIO 5873 es mi número de Cadete, indica que es un menú título en la barra de herramientas
+            {
+                MenuItem(lstMenu, item);
+            }
+        }
+    }
+</ul>
+
+@{
+    void MenuItem(List<OpcionMenu> source, OpcionMenu item)
+    {
+        if (source.Where(x => x.Cod_Menu_Padre == item.Cod_Menu).Count() > 0)
+        {
+        <li class="nav-item dropdown">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@item.Nombre_Opcion</a>
+            <ul class="dropdown-menu dropdown-menu-imsa">
+                @foreach (OpcionMenu subMenu in source.Where(x => x.Cod_Menu_Padre == item.Cod_Menu).ToList())
+                {
+                    MenuItem(source, subMenu);
+                }
+            </ul>
+        </li>
+        }
+        else
+        {
+        <li class="@(source.Where(x => x.Cod_Menu_Padre == item.Cod_Menu).Count() > 0 ? "nav-item dropdown" : "dropdown-menu-imsa-item isResponsiveButton")">
+            @Html.ActionLink(item.Nombre_Opcion, item.Metodo, item.Controlador, null, new { @class = "dropdown-item" })
+        </li>
+        }
+    }
+}

@@ -1,0 +1,37 @@
+﻿@{
+    // La siguiente línea se debe morir con el tiempo
+    string ClaseFila = ViewBag.CodMensajeBD == "OK" ? "alert alert-success alert-dismissible fade show" : "alert alert-danger alert-dismissible fade show";
+
+}
+
+<div id="dvMensajeOperacion">
+    @if (ViewBag.CodMensajeBD != null && !string.IsNullOrEmpty(ViewBag.MensajeBD))
+    {
+        <div class="@ClaseFila">
+            @ViewBag.MensajeBD
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+    }
+</div>
+
+<style>
+    .alert-danger {
+        color: #721c24 !important;
+        background-color: #f8d7da !important;
+        border-color: #f5c6cb !important;
+        border: 3px solid !important;
+    }
+
+    .alert-success {
+        color: #155724 !important;
+        background-color: #d4edda !important;
+        border-color: #c3e6cb !important;
+        font-weight: bold !important;
+        border: 3px solid !important;
+    }
+</style>
+
+

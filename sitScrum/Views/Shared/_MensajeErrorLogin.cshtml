@@ -1,0 +1,20 @@
+﻿@{
+    string ClaseFila = null;
+}
+
+<div>
+    @if (ViewBag.CodMensajeBD != null)
+    {                   
+                if (ViewBag.CodMensajeBD == "OK")
+                { ClaseFila = "success"; }
+                else { ClaseFila = "mensajeError"; }
+           
+            <div class="row">                
+                <div class="col">
+                    <div class="@ClaseFila" id="claseFila">
+                        <span id="textoBD">@ViewBag.MensajeBD</span>
+                    </div>
+                </div>
+            </div>     
+    }
+</div>

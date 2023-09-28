@@ -1,0 +1,49 @@
+﻿@model sitScrum.Models.Authentication.Credencial
+
+@{
+    ViewBag.Title = "Inicio de Sesión:";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head id="Head1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="~/favicon.ico">
+    <title>Login</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/IMSA/estiloFrmLogin.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm("LogIn", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="card"></div>
+            <div class="card">
+                <h1 class="title">
+                    <img ID="Image" src="~/images/logoMag.jpg" alt="Logo IMSA" />
+                </h1>
+                <div class="input-container">
+                    @Html.TextBoxFor(m => m.UserName, new { required = "required" })
+                    @Html.LabelFor(m => m.UserName)
+                    <div class="bar"></div>
+                </div>
+                <div class="input-container">
+                    @Html.PasswordFor(m => m.Password, new { required = "required" })
+                    @Html.LabelFor(m => m.Password)
+                    <div class="bar"></div>
+                </div>
+                <div class="button-container">
+                    <input type="submit" class="btn" value="Iniciar Sesión" />
+                </div>
+                <div style="text-align:center">
+                    @await Html.PartialAsync("_MensajeErrorLogin")
+                </div>
+            </div>
+        </div>
+    }
+
+</body>
+</html>

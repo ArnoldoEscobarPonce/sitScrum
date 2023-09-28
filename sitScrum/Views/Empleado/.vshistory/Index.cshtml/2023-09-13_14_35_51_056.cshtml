@@ -1,0 +1,16 @@
+﻿@model Persona
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index del controller Empleado del metodo Saludar</h1>
+
+<form asp-action="Saludar">
+    <p>Ingrese Id:</p>
+    <input asp-for="Id" />
+    <p>Ingrese nombre:</p>
+    <input asp-for="Nombre" />
+    <button type="submit"> Ir a Saludar</button>
+</form>
+

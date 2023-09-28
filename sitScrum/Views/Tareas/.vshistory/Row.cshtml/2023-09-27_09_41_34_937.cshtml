@@ -1,0 +1,34 @@
+﻿@using clbModels.Bitacora;
+@model Scrum_Tareas
+
+<tr>
+    <td>
+        <button class="btn btn-sm btn-success" onclick="btnEditar_Click(@Model.Cod_Tarea);">
+            <i class="fas fa-edit"></i> Editar
+        </button>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Cod_Tarea)
+    </td>
+    <td align="center">
+        @Html.DisplayFor(modelItem => Model.Cod_Actividad)
+    </td>
+    <td align="center">
+        @Model.Descripcion
+    </td>
+    <td>
+        @Model.Anotaciones
+    </td>
+    <td>
+        @Model.Cod_Empleado_Responsable
+    </td>
+    <td>
+        @Model.Fecha_Inicio
+    </td>
+    <td>
+        @Model.Fecha_Fin_Estimada
+    </td>
+    <td align="center">
+        @Model.Fecha_Fin_Real
+    </td>
+</tr>

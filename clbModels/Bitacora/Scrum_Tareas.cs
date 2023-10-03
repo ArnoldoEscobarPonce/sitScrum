@@ -33,6 +33,9 @@ namespace clbModels.Bitacora
         [Display(Name = "Empleado Responsable")]
         public double? Cod_Empleado_Responsable { get; set; }
         [DataMember]
+        [Display(Name = "Nombre Responsable")]
+        public string? Nombre_Empleado_Responsable { get; set; }
+        [DataMember]
         [Display(Name = "Fecha Inicio")]
         public DateTime? Fecha_Inicio { get; set; }
         [DataMember]

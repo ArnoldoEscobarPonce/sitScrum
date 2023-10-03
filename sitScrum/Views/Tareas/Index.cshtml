@@ -121,6 +121,12 @@
             vTieneError = true;
         }
 
+        $("#spn_cod_empleado_responsable").text("");
+        if ($("#Cod_Empleado_Responsable").val() == "") {
+            $("#spn_cod_empleado_responsable").text("El empleado es requerido");
+            vTieneError = true;
+        }
+
         $("#spn_descripcion").text("");
         if ($("#Descripcion").val() == "") {
             $("#spn_descripcion").text("La Descripcion es requerida");
@@ -130,6 +136,18 @@
         $("#spn_anotaciones").text("");
         if ($("#Anotaciones").val() == "") {
             $("#spn_anotaciones").text("La Anotacion es requerida");
+            vTieneError = true;
+        }
+
+        $("#spn_fecha_inicio").text("");
+        if ($("#Fecha_Inicio").val() == "") {
+            $("#spn_fecha_inicio").text("La fecha de inicio es requerida");
+            vTieneError = true;
+        }
+
+        $("#spn_fecha_fin_estimada").text("");
+        if ($("#Fecha_Fin_Estimada").val() == "") {
+            $("#spn_fecha_fin_estimada").text("La fecha estimada es requerida");
             vTieneError = true;
         }
 
@@ -144,8 +162,12 @@
             data: model = {
                 Cod_Tarea: $("#Cod_Tarea").val(),
                 Cod_Actividad: $("#Cod_Actividad").val(),
+                Cod_Empleado_Responsable: $("#Cod_Empleado_Responsable").val(),
                 Descripcion: $("#Descripcion").val(),
                 Anotaciones: $("#Anotaciones").val(),
+                Fecha_Inicio: $("#Fecha_Inicio").val(),
+                Fecha_Fin_Estimada: $("#Fecha_Fin_Estimada").val(),
+                Fecha_Fin_Real: $("#Fecha_Fin_Real").val(),
                 Accion: $("#Accion").val()
             },
             success: function (result) {

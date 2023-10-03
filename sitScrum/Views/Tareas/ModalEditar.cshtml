@@ -21,12 +21,22 @@
                             <input asp-for="Cod_Actividad" id="Cod_Actividad" type="number" class="form-control" disabled='@(Model?.Accion != "I" ? "disabled" : null)' />
                             <span id="spn_cod_Actividad" asp-validation-for="Cod_Actividad" class="text-danger"></span>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col px-1">
                             <label asp-for="Cod_Tarea" class="control-label"></label>
                             <input asp-for="Cod_Tarea" id="Cod_Tarea" type="number" class="form-control" disabled='@(Model?.Accion != "I" ? "disabled" : null)' />
                             <span id="spn_cod_tarea" asp-validation-for="Cod_Tarea" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col px-1">
+                            <label asp-for="Cod_Empleado_Responsable" class="control-label"></label>
+                            <input asp-for="Cod_Empleado_Responsable" id="Cod_Empleado_Responsable" type="number" class="form-control" />
+                            <span id="spn_cod_empleado_responsable" asp-validation-for="Cod_Empleado_Responsable" class="text-danger"></span>
+                        </div>
+                        <div class="col px-1">
+                            <label asp-for="Nombre_Empleado_Responsable" class="control-label"></label>
+                            <input asp-for="Nombre_Empleado_Responsable" class="form-control" />
+                            <span id="spn_nombre_empleado_responsable" asp-validation-for="Nombre_Empleado_Responsable" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -42,6 +52,27 @@
                             <label asp-for="Anotaciones" class="control-label"></label>
                             <input asp-for="Anotaciones" class="form-control" />
                             <span id="spn_anotaciones" asp-validation-for="Anotaciones" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col px-1">
+                            <label asp-for="Fecha_Inicio" class="control-label"></label>
+                            <input asp-for="Fecha_Inicio" class="form-control" />
+                            <span id="spn_fecha_inicio" asp-validation-for="Fecha_Inicio" class="text-danger"></span>
+                        </div>
+                        <div class="col px-1">
+                            <label asp-for="Fecha_Fin_Estimada" class="control-label"></label>
+                            <input asp-for="Fecha_Fin_Estimada" class="form-control" />
+                            <span id="spn_fecha_fin_estimada" asp-validation-for="Fecha_Fin_Estimada" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col px-1">
+                            <label asp-for="Fecha_Fin_Real" class="control-label"></label>
+                            <input asp-for="Fecha_Fin_Real" class="form-control" />
+                            <span id="spn_fecha_fin_real" asp-validation-for="Fecha_Fin_Real" class="text-danger"></span>
                         </div>
                     </div>
 

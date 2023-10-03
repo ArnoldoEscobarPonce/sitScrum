@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace clbModels.Bitacora
 {
     /// <summary>
-    /// BITACORA.SCRUM_TAREAS
+    /// BITACORA.SCRUM_TAREAS para definicion de Semana
     /// Tabla que contien las tareas de SCRUM
     /// </summary>
     [Serializable]

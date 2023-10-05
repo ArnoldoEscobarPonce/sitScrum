@@ -15,6 +15,9 @@ namespace clbBusiness
             _OperacionRepository = SectorRepository;
         }
 
+
+
+
         public string ErrorMessage => throw new NotImplementedException();
 
         public List<Scrum_Tareas> Get(Scrum_Tareas operacion)

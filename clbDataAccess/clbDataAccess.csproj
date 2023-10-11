@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LibreriaEstandar\IMSA.Core.Library\IMSA.Core.Library.csproj" />
+    <ProjectReference Include="..\..\..\..\..\..\..\ProyectoMVC\LibreriaEstandar\IMSA.Core.Library\IMSA.Core.Library.csproj" />
     <ProjectReference Include="..\clbDataAccessInterface\clbDataAccessInterface.csproj" />
     <ProjectReference Include="..\clbModels\clbModels.csproj" />
     <ProjectReference Include="..\IMSAUtil\IMSAUtil.csproj" />

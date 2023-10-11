@@ -55,8 +55,14 @@ namespace sitScrum
             services.AddTransient<IAuthRepository, AuthRespository>();
 
             //Proyecto SCRUM
+            // SCRUM_TAREAS
             services.AddTransient<IScrum_TareasBO, Scrum_TareasBO>();
             services.AddTransient<IScrum_TareasRepository, Scrum_TareasRepository>();
+
+            // SCRUM_ACTIVIDADES
+            services.AddTransient<IScrum_ActividadesBO, Scrum_ActividadesBO>();
+            services.AddTransient<IScrum_ActividadesRepository, Scrum_ActividadesRepository>();
+
 
             // Injeccion dependencia de httpContext
             services.AddHttpContextAccessor();

@@ -13,15 +13,16 @@ using IMSAUtilInterface.GUID;
 
 namespace clbDataAccess
 {
-    public class Scrum_TareasRepository : IScrum_TareasRepository
+    public class Scrum_ActividadesRepository : IScrum_ActividadesRepository
     {
+
         private readonly IConfiguration _configuration;
         private dbConnection _dbConnection = new dbConnection();
         private string errormessage;
 
-        string IScrum_TareasRepository.ErrorMessage { get => errormessage; }
+        string IScrum_ActividadesRepository.ErrorMessage { get => errormessage; }
 
-        public Scrum_TareasRepository(IConfiguration configuration, IOptions<Configuracion> imsaConfig, IHttpContextAccessor httpContextAccessor, IGuidGenerator guidGenerator)
+        public Scrum_ActividadesRepository(IConfiguration configuration, IOptions<Configuracion> imsaConfig, IHttpContextAccessor httpContextAccessor, IGuidGenerator guidGenerator)
         {
             var datoaUsuario = httpContextAccessor.HttpContext.Session.GetObject<DatosUsuario>("usrData");
             _configuration = configuration;
@@ -31,16 +32,16 @@ namespace clbDataAccess
             _dbConnection.EncriptedString = true;
         }
 
-        public List<ResponseDB> Del(Scrum_Tareas model)
+        public List<ResponseDB> Del(Scrum_Actividades model)
         {
             try
             {
                 List<dbParametro> dbParametros = new List<dbParametro>() {
-                new dbParametro("P_COD_TAREA",dbTipoDato.INT64,model.Cod_Tarea ,dbTipoParametro.ENTRADA),
+                new dbParametro("P_COD_ACTIVIDAD",dbTipoDato.INT64,model.Cod_Actividad,dbTipoParametro.ENTRADA),
                 new dbParametro("P_RESULTADO",dbTipoDato.REFCURSOR,null,dbTipoParametro.SALIDA)
                 };
 
-                return _dbConnection.GetProcedure<ResponseDB>("BITACORA.PKG_SCRUM_NMAYEN.PR_DEL_SCRUM_TAREAS", dbParametros);
+                return _dbConnection.GetProcedure<ResponseDB>("BITACORA.PKG_SCRUM_NMAYEN.PR_DEL_SCRUM_ACTIVIDAD", dbParametros);
             }
             catch (Exception ex)
             {
@@ -48,16 +49,15 @@ namespace clbDataAccess
             }
         }
 
-        public List<Scrum_Tareas> Get(Scrum_Tareas model)
+        public List<Scrum_Actividades> Get(Scrum_Actividades model)
         {
             try
             {
                 List<dbParametro> dbParametros = new List<dbParametro>();
-                dbParametros.Add(new dbParametro("P_COD_TAREA", dbTipoDato.INT64, model.Cod_Tarea, dbTipoParametro.ENTRADA));
+                dbParametros.Add(new dbParametro("P_COD_ACTIVIDAD", dbTipoDato.INT64, model.Cod_Actividad, dbTipoParametro.ENTRADA));
                 dbParametros.Add(new dbParametro("P_RESULTADO", dbTipoDato.REFCURSOR, null, dbTipoParametro.SALIDA));
 
-                return _dbConnection.GetProcedure<Scrum_Tareas>(
-                    "BITACORA.PKG_SCRUM_NMAYEN.PR_GET_SCRUM_TAREAS", dbParametros);
+                return _dbConnection.GetProcedure<Scrum_Actividades>("BITACORA.PKG_SCRUM_NMAYEN.PR_GET_SCRUM_ACTIVIDAD", dbParametros);
             }
             catch (Exception ex)
             {
@@ -65,22 +65,21 @@ namespace clbDataAccess
             }
         }
 
-        public List<ResponseDB> Set(Scrum_Tareas model)
+        public List<ResponseDB> Set(Scrum_Actividades model)
         {
             try
             {
                 List<dbParametro> dbParametros = new List<dbParametro>() {
                 new dbParametro("P_COD_ACTIVIDAD",dbTipoDato.INT64,model.Cod_Actividad ,dbTipoParametro.ENTRADA),
+                new dbParametro("P_COD_PROYECTO",dbTipoDato.INT64,model.Cod_Proyecto,dbTipoParametro.ENTRADA),
                 new dbParametro("P_DESCRIPCION",dbTipoDato.VARCHAR2,model.Descripcion ,dbTipoParametro.ENTRADA),
                 new dbParametro("P_ANOTACIONES",dbTipoDato.VARCHAR2,model.Anotaciones ,dbTipoParametro.ENTRADA),
-                new dbParametro("P_COD_EMPLEADO_RESPONSABLE",dbTipoDato.INT64,model.Cod_Empleado_Responsable ,dbTipoParametro.ENTRADA),
                 new dbParametro("P_FECHA_INICIO",dbTipoDato.DATE,model.Fecha_Inicio ,dbTipoParametro.ENTRADA),
-                new dbParametro("P_FECHA_FIN_ESTIMADA",dbTipoDato.DATE,model.Fecha_Fin_Estimada ,dbTipoParametro.ENTRADA),
-                new dbParametro("P_FECHA_FIN_REAL",dbTipoDato.DATE,model.Fecha_Fin_Real ,dbTipoParametro.ENTRADA),
+                new dbParametro("P_FECHA_FIN",dbTipoDato.DATE,model.Fecha_Fin ,dbTipoParametro.ENTRADA),
                 new dbParametro("P_RESULTADO",dbTipoDato.REFCURSOR,null,dbTipoParametro.SALIDA)
                 };
 
-                return _dbConnection.GetProcedure<ResponseDB>("BITACORA.PKG_SCRUM_NMAYEN.PR_SET_SCRUM_TAREAS", dbParametros);
+                return _dbConnection.GetProcedure<ResponseDB>("BITACORA.PKG_SCRUM_NMAYEN.PR_GET_SCRUM_ACTIVIDAD", dbParametros);
             }
             catch (Exception ex)
             {
@@ -88,23 +87,21 @@ namespace clbDataAccess
             }
         }
 
-        public List<ResponseDB> Upd(Scrum_Tareas model)
+        public List<ResponseDB> Upd(Scrum_Actividades model)
         {
             try
             {
                 List<dbParametro> dbParametros = new List<dbParametro>() {
-                new dbParametro("P_COD_TAREA",dbTipoDato.INT64,model.Cod_Tarea ,dbTipoParametro.ENTRADA),
-                new dbParametro("P_COD_ACTIVIDAD",dbTipoDato.INT64,model.Cod_Actividad ,dbTipoParametro.ENTRADA),
-                new dbParametro("P_DESCRIPCION",dbTipoDato.VARCHAR2,model.Descripcion ,dbTipoParametro.ENTRADA),
-                new dbParametro("P_ANOTACIONES",dbTipoDato.VARCHAR2,model.Anotaciones ,dbTipoParametro.ENTRADA),
-                new dbParametro("P_COD_EMPLEADO_RESPONSABLE",dbTipoDato.INT64,model.Cod_Empleado_Responsable ,dbTipoParametro.ENTRADA),
-                new dbParametro("P_FECHA_INICIO",dbTipoDato.DATE,model.Fecha_Inicio ,dbTipoParametro.ENTRADA),
-                new dbParametro("P_FECHA_FIN_ESTIMADA",dbTipoDato.DATE,model.Fecha_Fin_Estimada ,dbTipoParametro.ENTRADA),
-                new dbParametro("P_FECHA_FIN_REAL",dbTipoDato.DATE,model.Fecha_Fin_Real ,dbTipoParametro.ENTRADA),
+                new dbParametro("P_COD_ACTIVIDAD",dbTipoDato.INT64,model.Cod_Actividad,dbTipoParametro.ENTRADA),
+                new dbParametro("P_COD_PROYECTO",dbTipoDato.INT64,model.Cod_Proyecto,dbTipoParametro.ENTRADA),
+                new dbParametro("P_DESCRIPCION",dbTipoDato.VARCHAR2,model.Descripcion,dbTipoParametro.ENTRADA),
+                new dbParametro("P_ANOTACIONES",dbTipoDato.VARCHAR2,model.Anotaciones,dbTipoParametro.ENTRADA),
+                new dbParametro("P_FECHA_INICIO",dbTipoDato.DATE,model.Fecha_Inicio,dbTipoParametro.ENTRADA),
+                new dbParametro("P_FECHA_FIN",dbTipoDato.DATE,model.Fecha_Fin,dbTipoParametro.ENTRADA),
                 new dbParametro("P_RESULTADO",dbTipoDato.REFCURSOR,null,dbTipoParametro.SALIDA)
                 };
 
-                return _dbConnection.GetProcedure<ResponseDB>("BITACORA.PKG_SCRUM_NMAYEN.PR_UPD_SCRUM_TAREAS", dbParametros);
+                return _dbConnection.GetProcedure<ResponseDB>("BITACORA.PKG_SCRUM_NMAYEN.PR_UPD_SCRUM_ACTIVIDAD", dbParametros);
             }
             catch (Exception ex)
             {
@@ -112,4 +109,5 @@ namespace clbDataAccess
             }
         }
     }
+
 }

@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\LibreriaEstandar\IMSA.Core.Library\IMSA.Core.Library.csproj" />
+    <ProjectReference Include="..\..\..\..\..\..\..\ProyectoMVC\LibreriaEstandar\IMSA.Core.Library\IMSA.Core.Library.csproj" />
     <ProjectReference Include="..\clbBusinessInterface\clbBusinessInterface.csproj" />
     <ProjectReference Include="..\clbBusiness\clbBusiness.csproj" />
     <ProjectReference Include="..\clbDataAccessInterface\clbDataAccessInterface.csproj" />

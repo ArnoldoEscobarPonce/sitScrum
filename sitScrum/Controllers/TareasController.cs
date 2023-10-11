@@ -91,5 +91,20 @@ namespace sitScrum.Controllers
                 return BadRequest(_ITareasBO.ErrorMessage + " => " + ex.Message);
             }
         }
+
+        [HttpPost]
+        public IActionResult EliminarRegistro(Scrum_Tareas model)
+        {
+            try
+            {
+                var vResponse = _ITareasBO.Del(model).First();
+
+                return Json(new { Mensaje = "Proceso Ejecutado", Error = "N", Cod_Transaccion = vResponse.cod_error });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Mensaje = $"Ocurrio un Problema {ex.Message}", Error = "S" });
+            }
+        }
     }
 }

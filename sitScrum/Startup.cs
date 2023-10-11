@@ -43,6 +43,7 @@ namespace sitScrum
                 options.Cookie.IsEssential = true;
             });
 
+
             // se agrega el razorRuntimeCompilation para los cambios de paginas razor no haya que parar el servidor
             services.AddControllersWithViews(config =>
             {

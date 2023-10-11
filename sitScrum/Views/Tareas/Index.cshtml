@@ -31,7 +31,7 @@
     }
 
     function fnConsultarDetalle() {
-        // debugger;
+        // //debugger;
 
         $.ajax({
             type: "POST",
@@ -40,13 +40,13 @@
             //data: model = {Anio_Zafra: vZafra},
             //dataType: "json",
             success: function (data) {
-                // debugger;
+                // //debugger;
                 $("#dvDetalle").html();
                 $("#dvDetalle").html(data);
                 // InitializeTable("#tablaDetalle");
             },
             complete: function (data) {
-                // debugger;
+                // //debugger;
                 console.log("Exito");
             },
             error: function (jqXhr, textStatus, errorMessage) {
@@ -64,7 +64,7 @@
             url: '@Url.Action("RecuperarRegistro", "Tareas")',
             data: model = { Accion: "I" },
             success: function (data) {
-                //debugger;
+                ////debugger;
                 $("#dvEditar").html();
                 $("#dvEditar").html(data);
                 //$("#Accion").val("I");
@@ -86,9 +86,9 @@
         $.ajax({
             type: "POST",
             url: '@Url.Action("RecuperarRegistro", "Tareas")',
-            data: model = { Cod_Tarea: vTarea, Accion: "U" },
+            data: model2 = { Cod_Tarea: vTarea, Accion: "U" },
             success: function (data) {
-                //debugger;
+                ////debugger;
                 $("#dvEditar").html();
                 $("#dvEditar").html(data);
                 ShowModal("#dvModalEditar");
@@ -107,7 +107,7 @@
         event.preventDefault(); // Evita que el formulario se envíe por defecto
         var vTieneError = false;
 
-        // debugger;
+        // //debugger;
 
         $("#spn_cod_Actividad").text("");
         if ($("#Cod_Actividad").val() == "") {
@@ -154,7 +154,7 @@
         if (vTieneError)
             return false;
 
-        // debugger;
+        // //debugger;
 
         $.ajax({
             type: 'POST',
@@ -190,4 +190,42 @@
         });
     }
 
+    var vIdRegistroParaBorrar = "";
+
+    function hidden_btnClick_EliminarRegistro() {
+        //debugger;
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("EliminarRegistro", "Tareas")',
+            //contentType: "application/json; charset=utf-8",
+            //dataType: "json",
+            data: model = {
+                Cod_Tarea: vIdRegistroParaBorrar
+            },
+            success: function (data) {
+                //debugger;
+
+                if (data.error == 'N') {
+                    fnConsultarDetalle();
+                    ShowSuccessDialog('Registro Borrado');
+                }
+                else {
+                    ShowErrorDialog(data.mensaje + ':\n\n(' + data.descripcion + ')');
+                }
+
+            },
+            complete: function (data) {
+                //debugger;
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                ShowErrorDialog(errorMessage);
+            }
+        });
+    }
+
+    function btnEliminar_Click(vIdRegistro) {
+        //debugger;
+        vIdRegistroParaBorrar = vIdRegistro;
+        ConfirmationDialog(hiddenEliminarRegistro, '¿Esta seguro de eliminar este registro #' + vIdRegistro + '?');
+    }
 </script>

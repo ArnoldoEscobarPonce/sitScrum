@@ -1,56 +1,222 @@
 ﻿@using clbModels.Bitacora;
 @model List<Scrum_Actividades>
 
-<table class="table table-striped table-bordered table-hover table-sm isDataTable isExportTable withOutAutoFit">
-    <thead>
-        <tr class="bg-primary text-white">
-            <td align="center">
-                @Html.LabelFor(model => model.First().Cod_Actividad, htmlAttributes: new { @class = "control-label" })
-            </td>
-            <td align="center">
-                @Html.LabelFor(model => model.First().Cod_Proyecto, htmlAttributes: new { @class = "control-label" })
-            </td>
-            <td align="center">
-                @Html.LabelFor(model => model.First().Descripcion, htmlAttributes: new { @class = "control-label" })
-            </td>
-            <td align="center">
-                @Html.LabelFor(model => model.First().Anotaciones, htmlAttributes: new { @class = "control-label" })
-            </td>
-            <td align="center">
-                @Html.LabelFor(model => model.First().Fecha_Inicio, htmlAttributes: new { @class = "control-label" })
-            </td>
-            <td align="center">
-                @Html.LabelFor(model => model.First().Fecha_Fin, htmlAttributes: new { @class = "control-label" })
-            </td>
+<div class="alert alert-success" role="alert">
+    <h5 class="text-center"><b>Maestro Actividades SCRUM</b></h5>
+</div>
 
+<button class="btn btn-success" onclick="btnNuevoRegistro_Click();"><i class="fas fa-plus-circle"></i> Nuevo Registro</button>
+<br />
+<br />
 
+<div id="dvDetalle">
+    @await Html.PartialAsync("DetalleDatos", new List<Scrum_Actividades>());
+</div>
 
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model != null)
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td align="center">
-                        @Html.DisplayFor(modelItem => item.Cod_Actividad)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cod_Proyecto)
-                    </td>
-                    <td align="center">
-                        @item.Descripcion
-                    </td>
-                    <td>
-                        @item.Anotaciones
-                    </td>
-                    <td>
-                        @item.Fecha_Inicio
-                    </td>
-                    <td>
-                        @item.Fecha_Fin
-                    </td>
-                </tr>
+<div id="dvEditar">
+    @await Html.PartialAsync("ModalEditar", new Scrum_Actividades());
+</div>
+
+<script>
+    //JQUERY
+    $(document).ready(function () {
+        fnConsultarDetalle();
+    });
+
+    function ShowModal(name) {
+        $(name).modal('toggle');
+    };
+
+    function LimpiarModal() {
+        $("#Cod_Actividad").val("");
+        $("#Cod_Proyecto").val("");
+        $("#Descripcion").val("");
+        $("#Anotaciones").val("");
+        $("#Accion").val("");
+    }
+
+    function fnConsultarDetalle() {
+        // //debugger;
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListarDetalle", "Actividades")',
+            success: function (data) {
+                $("#dvDetalle").html();
+                $("#dvDetalle").html(data);
+            },
+            complete: function (data) {
+                console.log("Exito");
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                ShowErrorDialog(errorMessage);
+                console.log(result);
             }
-    </tbody>
-</table>
+        });
+    }
+
+    function btnNuevoRegistro_Click() {
+        LimpiarModal();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("RecuperarRegistro", "Actividades")',
+            data: model = { Accion: "I" },
+            success: function (data) {
+                ////debugger;
+                $("#dvEditar").html();
+                $("#dvEditar").html(data);
+                //$("#Accion").val("I");
+                ShowModal("#dvModalEditar");
+
+                $('.modal-dialog').draggable({
+                    handle: ".modal-header"
+                });
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                ShowErrorDialog(errorMessage);
+            }
+        });
+    }
+
+    function btnEditar_Click(vActividad) {
+        LimpiarModal();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("RecuperarRegistro", "Actividades")',
+            data: model2 = { Cod_Actividad: vActividad, Accion: "U" },
+            success: function (data) {
+                ////debugger;
+                $("#dvEditar").html();
+                $("#dvEditar").html(data);
+                ShowModal("#dvModalEditar");
+
+                $('.modal-dialog').draggable({
+                    handle: ".modal-header"
+                });
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                ShowErrorDialog(errorMessage);
+            }
+        });
+    }
+
+    function fnClick_Grabar() {
+        event.preventDefault(); // Evita que el formulario se envíe por defecto
+        var vTieneError = false;
+
+        // //debugger;
+
+        $("#spn_cod_Actividad").text("");
+        if ($("#Cod_Actividad").val() == "") {
+            $("#spn_cod_Actividad").text("La actividad es requerida");
+            vTieneError = true;
+        }
+
+        $("#spn_cod_Proyecto").text("");
+        if ($("#Cod_Proyecto").val() == "") {
+            $("#spn_cod_proyecto").text("El Proyecto es requerido");
+            vTieneError = true;
+        }
+
+        $("#spn_descripcion").text("");
+        if ($("#Descripcion").val() == "") {
+            $("#spn_descripcion").text("La Descripcion es requerida");
+            vTieneError = true;
+        }
+
+        $("#spn_anotaciones").text("");
+        if ($("#Anotaciones").val() == "") {
+            $("#spn_anotaciones").text("La Anotacion es requerida");
+            vTieneError = true;
+        }
+
+        $("#spn_fecha_inicio").text("");
+        if ($("#Fecha_Inicio").val() == "") {
+            $("#spn_fecha_inicio").text("La fecha de inicio es requerida");
+            vTieneError = true;
+        }
+
+        $("#spn_fecha_fin").text("");
+        if ($("#Fecha_Fin").val() == "") {
+            $("#spn_fecha_fin").text("La fecha final es requerida");
+            vTieneError = true;
+        }
+
+        if (vTieneError)
+            return false;
+
+        // //debugger;
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ModificarRegistro", "Actividades")',
+            data: model = {
+                Cod_Actividad: $("#Cod_Actividad").val(),
+                Cod_Proyecto: $("#Cod_Proyecto").val(),
+                Descripcion: $("#Descripcion").val(),
+                Anotaciones: $("#Anotaciones").val(),
+                Fecha_Inicio: $("#Fecha_Inicio").val(),
+                Fecha_Fin_Estimada: $("#Fecha_Fin").val(),
+                Accion: $("#Accion").val()
+            },
+            success: function (result) {
+                $('#dvModalEditar').modal('hide');
+                let rowman = '#tr_' + $("#Cod_Actividad").val();
+                $(rowman).html();
+                $(rowman).html(result);
+                ShowSuccessDialog('Registro grabado');
+
+                if ($("#Accion").val() == 'I') {
+                    fnConsultarDetalle();
+                }
+            },
+            complete: function (data) {
+                LimpiarModal();
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                ShowErrorDialog(errorMessage);
+            }
+        });
+    }
+
+    var vIdRegistroParaBorrar = "";
+
+    function hidden_btnClick_EliminarRegistro() {
+        //debugger;
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("EliminarRegistro", "Actividades")',
+            //contentType: "application/json; charset=utf-8",
+            //dataType: "json",
+            data: model = {
+                Cod_Tarea: vIdRegistroParaBorrar
+            },
+            success: function (data) {
+                //debugger;
+
+                if (data.error == 'N') {
+                    fnConsultarDetalle();
+                    ShowSuccessDialog('Registro Borrado');
+                }
+                else {
+                    ShowErrorDialog(data.mensaje + ':\n\n(' + data.descripcion + ')');
+                }
+
+            },
+            complete: function (data) {
+                //debugger;
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+                ShowErrorDialog(errorMessage);
+            }
+        });
+    }
+
+    function btnEliminar_Click(vIdRegistro) {
+        //debugger;
+        vIdRegistroParaBorrar = vIdRegistro;
+        ConfirmationDialog(hiddenEliminarRegistro, '¿Esta seguro de eliminar este registro #' + vIdRegistro + '?');
+    }
+
+</script>

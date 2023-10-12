@@ -1,0 +1,35 @@
+﻿@using clbModels.Bitacora;
+@model Scrum_Actividades
+
+<td>
+    <button class="btn btn-sm btn-success" onclick="btnEditar_Click(@Model.Cod_Actividad);">
+        <i class="fas fa-edit"></i>
+    </button>
+    <button class="btn btn-sm btn-success" onclick="btnEliminar_Click(@Model.Cod_Actividad);">
+        <i class="fas fa-trash"></i>
+    </button>
+</td>
+<td>
+    <button class="btn btn-sm btn-success" onclick="btnEditar_Click(@Model.Cod_Actividad;">
+        <i class="fas fa-edit"></i> Actividades
+    </button>
+</td>
+<td>
+    @Html.DisplayFor(modelItem => Model.Cod_Actividad)
+</td>
+<td align="center">
+    @Html.DisplayFor(modelItem => Model.Cod_Proyecto)
+</td>
+<td align="center">
+    @Model.Descripcion
+</td>
+<td>
+    @Model.Anotaciones
+</td>
+<td>
+    @Model.Fecha_Inicio
+</td>
+<td align="center">
+    @Model.Fecha_Fin
+</td>
+
